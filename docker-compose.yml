@@ -1,0 +1,44 @@
+services:
+  caddy:
+    image: caddy:2.8.4
+    container_name: pwa-nuxt-caddy
+    depends_on:
+      - app
+    ports:
+      - '80:80'
+      - '443:443'
+      - '443:443/udp'
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - edge_network
+    restart: unless-stopped
+
+  app:
+    container_name: pwa-nuxt-ssr
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pwa-nuxt
+    expose:
+      - '3000'
+    environment:
+      NITRO_PORT: '3000'
+      NITRO_HOST: '0.0.0.0'
+      NUXT_PUBLIC_SITE_URL: 'https://pwa.graines-digitales.online'
+      # Décommenter pour pointer vers la future API Symfony :
+      # NUXT_PUBLIC_API_BASE: 'https://api.exemple.fr'
+    networks:
+      - edge_network
+    restart: unless-stopped
+
+networks:
+  edge_network:
+    external: true
+    name: edge-net
+
+volumes:
+  caddy_data:
+  caddy_config:

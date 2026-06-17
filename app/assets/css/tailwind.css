@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply min-h-screen bg-slate-950 text-slate-100;
+    /* Respecte les encoches mobiles en mode standalone. */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+      env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-5 py-3
+      font-medium text-white transition-colors hover:bg-brand-dark
+      focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+      focus-visible:outline-brand;
+  }
+
+  .card {
+    @apply rounded-xl border border-slate-800 bg-slate-900/60 p-5 shadow-sm;
+  }
+}

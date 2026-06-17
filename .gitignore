@@ -1,0 +1,26 @@
+# Nuxt
+.nuxt
+.output
+.nitro
+.cache
+dist
+
+# Dépendances
+node_modules
+
+# Logs
+*.log
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+
+# Éditeurs / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+
+# Service worker généré
+sw.js
+workbox-*.js

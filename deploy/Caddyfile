@@ -1,0 +1,19 @@
+{
+	servers {
+		protocols h1 h2 h3
+	}
+}
+
+pwa.graines-digitales.online {
+	header X-Robots-Tag "noindex, nofollow"
+
+	@robots path /robots.txt
+	handle @robots {
+		header Content-Type text/plain
+		respond `User-agent: *
+Disallow: /
+` 200
+	}
+
+	reverse_proxy pwa-nuxt-ssr:3000
+}
